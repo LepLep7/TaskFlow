@@ -78,6 +78,34 @@ class TaskController extends Controller
     }
 
     /**
+     * Mark the given task as completed.
+     */
+    public function markComplete(Task $task): RedirectResponse
+    {
+        $this->authorizeTask($task);
+
+        $task->update(['status' => 'completed']);
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('success', 'Task marked as completed.');
+    }
+
+    /**
+     * Mark the given task as pending.
+     */
+    public function markPending(Task $task): RedirectResponse
+    {
+        $this->authorizeTask($task);
+
+        $task->update(['status' => 'pending']);
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('success', 'Task marked as pending.');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Task $task): RedirectResponse
