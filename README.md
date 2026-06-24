@@ -40,7 +40,7 @@ A simple, clean task management application built with **Laravel 12**, demonstra
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/username-awak/taskflow.git
+   git clone https://github.com/username/taskflow.git
    cd taskflow
 ```
 
@@ -74,10 +74,5 @@ A simple, clean task management application built with **Laravel 12**, demonstra
 
    Visit `http://127.0.0.1:8000` (or your configured local domain).
 
-## Screenshots
-
-*(Add screenshots of your Dashboard, Task List, and Create Task form here)*
-
 ## Author
-
 Alif Hykal
