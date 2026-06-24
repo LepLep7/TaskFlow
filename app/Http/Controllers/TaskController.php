@@ -42,7 +42,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task berjaya ditambah.');
+            ->with('success', 'Task created successfully.');
     }
 
     /**
@@ -74,7 +74,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task berjaya dikemaskini.');
+            ->with('success', 'Task updated successfully.');
     }
 
     /**
@@ -88,7 +88,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Task berjaya dipadam.');
+            ->with('success', 'Task deleted successfully.');
     }
 
     /**

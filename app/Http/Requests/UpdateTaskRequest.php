@@ -27,8 +27,8 @@ class UpdateTaskRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Sila masukkan tajuk task.',
-            'status.in' => 'Status mesti pending atau completed sahaja.',
+            'title.required' => 'Please enter a task title.',
+            'status.in' => 'Status must be either pending or completed.',
         ];
     }
 }

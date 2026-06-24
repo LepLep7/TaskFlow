@@ -34,9 +34,9 @@ class StoreTaskRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Sila masukkan tajuk task.',
-            'title.max' => 'Tajuk task tidak boleh lebih 255 huruf.',
-            'due_date.after' => 'Tarikh akhir kena tarikh masa depan.',
+            'title.required' => 'Please enter a task title.',
+            'title.max' => 'Task title must not exceed 255 characters.',
+            'due_date.after' => 'Due date must be a future date.',
         ];
     }
 }
