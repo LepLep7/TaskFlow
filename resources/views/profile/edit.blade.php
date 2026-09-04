@@ -13,13 +13,54 @@
         <div class="col-lg-4">
             <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.07);text-align:center;">
 
-                <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#1D9E75);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;margin:0 auto 12px;">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                </div>
+                {{-- Avatar --}}
+                @if (auth()->user()->profile_photo)
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
+                        alt="Profile Photo"
+                        style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;border:3px solid #EEEDFE;">
+                @else
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#1D9E75);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px;">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </div>
+                @endif
 
                 <div style="font-size:16px;font-weight:600;color:#1a1a2e;">{{ auth()->user()->name }}</div>
                 <div style="font-size:13px;color:#aaa;margin-top:2px;">{{ auth()->user()->email }}</div>
 
+                {{-- Upload photo form --}}
+                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data"
+                    style="margin-top:16px;">
+                    @csrf
+                    @method('PATCH')
+
+                    {{-- Hidden fields supaya validation pass --}}
+                    <input type="hidden" name="name" value="{{ auth()->user()->name }}">
+                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+
+                    <label for="profile_photo"
+                        style="display:inline-flex;align-items:center;gap:6px;background:#EEEDFE;color:#534AB7;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;">
+                        <i class="bi bi-camera"></i>
+                        Change photo
+                        <input type="file"
+                            id="profile_photo"
+                            name="profile_photo"
+                            accept="image/*"
+                            style="display:none;"
+                            onchange="this.form.submit()">
+                    </label>
+
+                    @error('profile_photo')
+                        <div style="font-size:12px;color:#A32D2D;margin-top:6px;background:#FCEBEB;padding:6px 10px;border-radius:6px;">
+                            <i class="bi bi-exclamation-circle"></i> {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div style="font-size:11px;color:#bbb;margin-top:8px;">
+                        JPG, PNG, GIF — max 2MB
+                    </div>
+                </form>
+
+                {{-- Stats --}}
                 <div style="margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f0;display:flex;justify-content:space-around;text-align:center;">
                     <div>
                         <div style="font-size:20px;font-weight:700;color:#534AB7;">{{ auth()->user()->tasks()->count() }}</div>

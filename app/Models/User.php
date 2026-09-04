@@ -45,6 +45,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo',
     ];
 
     protected $hidden = [
@@ -66,5 +67,17 @@ class User extends Authenticatable
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    /**
+     * Get profile photo URL or default initials avatar.
+     */
+    public function getProfilePhotoUrlAttribute(): string
+    {
+        if ($this->profile_photo) {
+            return asset('storage/' . $this->profile_photo);
+        }
+
+        return '';
     }
 }
