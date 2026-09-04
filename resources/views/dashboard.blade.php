@@ -6,9 +6,6 @@
 
     <div class="page-header">
         <h1 class="page-title">Good day, {{ auth()->user()->name }} 👋</h1>
-        <a href="{{ route('tasks.create') }}" class="btn-gradient">
-            <i class="bi bi-plus-lg"></i> New Task
-        </a>
     </div>
 
     <div class="row g-3 mb-4">

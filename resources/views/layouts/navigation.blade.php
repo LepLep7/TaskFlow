@@ -20,11 +20,6 @@
         <i class="bi bi-list-check"></i> My Tasks
     </a>
 
-    <a href="{{ route('tasks.create') }}"
-       class="nav-item">
-        <i class="bi bi-plus-circle"></i> New Task
-    </a>
-
     <a href="{{ route('profile.edit') }}"
        class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
         <i class="bi bi-person-circle"></i> Profile
