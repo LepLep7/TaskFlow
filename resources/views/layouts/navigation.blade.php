@@ -1,40 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
-            <i class="bi bi-check2-square"></i> TaskFlow
-        </a>
+@php
+    $initials = collect(explode(' ', auth()->user()->name))
+        ->map(fn($w) => strtoupper($w[0]))
+        ->take(2)
+        ->implode('');
+@endphp
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<aside class="sidebar">
+    <a class="sidebar-brand" href="{{ route('dashboard') }}">
+        <i class="bi bi-check2-square"></i> TaskFlow
+    </a>
 
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tasks.index') }}">Tasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tasks.create') }}">+ New Task</a>
-                </li>
-            </ul>
+    <a href="{{ route('dashboard') }}"
+       class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <i class="bi bi-grid-1x2"></i> Dashboard
+    </a>
 
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.edit') }}">Profile</a>
-                </li>
-                <li class="nav-item d-flex align-items-center text-light me-3">
-                    {{ auth()->user()->name }}
-                </li>
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-light btn-sm">Log Out</button>
-                    </form>
-                </li>
-            </ul>
+    <a href="{{ route('tasks.index') }}"
+       class="nav-item {{ request()->routeIs('tasks.*') ? 'active' : '' }}">
+        <i class="bi bi-list-check"></i> My Tasks
+    </a>
+
+    <a href="{{ route('tasks.create') }}"
+       class="nav-item">
+        <i class="bi bi-plus-circle"></i> New Task
+    </a>
+
+    <a href="{{ route('profile.edit') }}"
+       class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+        <i class="bi bi-person-circle"></i> Profile
+    </a>
+
+    <div class="sidebar-user">
+        <div class="sidebar-avatar">{{ $initials }}</div>
+        <div>
+            <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" class="sidebar-user-action"
+                        style="background:none;border:none;padding:0;cursor:pointer;">
+                    Log out
+                </button>
+            </form>
         </div>
     </div>
-</nav>
+</aside>

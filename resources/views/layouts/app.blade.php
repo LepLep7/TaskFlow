@@ -7,24 +7,27 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/taskflow.css') }}">
 </head>
-<body class="bg-light">
+<body>
+
+<div class="app-wrapper">
 
     @include('layouts.navigation')
 
-    <main class="container py-4">
+    <main class="main-content">
 
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="flash-success">
+                <span><i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}</span>
+                <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;color:#3B6D11;font-size:16px;">&times;</button>
             </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="flash-error">
+                <span><i class="bi bi-exclamation-circle-fill me-2"></i>{{ session('error') }}</span>
+                <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;color:#A32D2D;font-size:16px;">&times;</button>
             </div>
         @endif
 
@@ -32,6 +35,8 @@
 
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

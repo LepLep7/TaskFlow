@@ -4,61 +4,71 @@
 
 @section('content')
 
-    <h1 class="mb-4">Welcome, {{ auth()->user()->name }} 👋</h1>
+    <div class="page-header">
+        <h1 class="page-title">Good day, {{ auth()->user()->name }} 👋</h1>
+        <a href="{{ route('tasks.create') }}" class="btn-gradient">
+            <i class="bi bi-plus-lg"></i> New Task
+        </a>
+    </div>
 
     <div class="row g-3 mb-4">
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h6 class="text-muted">Total Tasks</h6>
-                    <h2 class="fw-bold">{{ $totalTasks }}</h2>
-                </div>
+            <div class="stat-card stat-total">
+                <div class="stat-label">Total Tasks</div>
+                <div class="stat-number text-purple">{{ $totalTasks }}</div>
+                <div class="stat-sub">All time</div>
             </div>
         </div>
-
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h6 class="text-muted">Pending</h6>
-                    <h2 class="fw-bold text-warning">{{ $pendingTasks }}</h2>
-                </div>
+            <div class="stat-card stat-pending">
+                <div class="stat-label">Pending</div>
+                <div class="stat-number text-amber">{{ $pendingTasks }}</div>
+                <div class="stat-sub">In progress</div>
             </div>
         </div>
-
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h6 class="text-muted">Completed</h6>
-                    <h2 class="fw-bold text-success">{{ $completedTasks }}</h2>
-                </div>
+            <div class="stat-card stat-completed">
+                <div class="stat-label">Completed</div>
+                <div class="stat-number text-teal">{{ $completedTasks }}</div>
+                <div class="stat-sub">Well done!</div>
             </div>
         </div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Recent Tasks</h5>
-        <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
+    <div class="section-heading">
+        Recent Tasks
+        <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-outline-secondary">View All</a>
     </div>
 
     @forelse ($recentTasks as $task)
-        <div class="card mb-2">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <strong>{{ $task->title }}</strong>
-                    <div class="text-muted small">
-                        Due: {{ $task->due_date?->format('d M Y') ?? 'No due date' }}
-                    </div>
-                </div>
-
+        <div class="task-card">
+            <div class="task-check {{ $task->isCompleted() ? 'completed' : '' }}">
                 @if ($task->isCompleted())
-                    <span class="badge bg-success">Completed</span>
-                @else
-                    <span class="badge bg-warning text-dark">Pending</span>
+                    <i class="bi bi-check" style="font-size:12px;"></i>
                 @endif
             </div>
+            <div style="flex:1;">
+                <a href="{{ route('tasks.show', $task) }}"
+                   class="task-title-text {{ $task->isCompleted() ? 'is-completed' : '' }}">
+                    {{ $task->title }}
+                </a>
+                <div class="task-due-text">
+                    <i class="bi bi-calendar3"></i>
+                    {{ $task->due_date?->format('d M Y') ?? 'No due date' }}
+                </div>
+            </div>
+            @if ($task->isCompleted())
+                <span class="badge-completed">Completed</span>
+            @else
+                <span class="badge-pending">Pending</span>
+            @endif
         </div>
     @empty
-        <p class="text-muted">No tasks yet. <a href="{{ route('tasks.create') }}">Add your first task.</a></p>
+        <div class="empty-state">
+            <i class="bi bi-clipboard-x"></i>
+            <p>No tasks yet.</p>
+            <a href="{{ route('tasks.create') }}" class="btn-gradient">Add your first task</a>
+        </div>
     @endforelse
 
 @endsection
