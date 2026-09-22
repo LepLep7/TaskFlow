@@ -9,15 +9,15 @@
 
             {{-- Logo & Title --}}
             <div style="text-align:center; margin-bottom: 28px;">
-                <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#534AB7,#1D9E75);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;">
+                <div style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;border:1px solid rgba(255,255,255,0.3);">
                     <i class="bi bi-check2-square"></i>
                 </div>
-                <div style="font-size:22px;font-weight:700;color:#1a1a2e;">Create an account</div>
-                <div style="font-size:13px;color:#aaa;margin-top:4px;">Join TaskFlow and start managing your tasks</div>
+                <div style="font-size:22px;font-weight:700;color:#fff;">Create an account</div>
+                <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-top:4px;">Join TaskFlow and start managing your tasks</div>
             </div>
 
             {{-- Card --}}
-            <div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+            <div style="background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:20px;padding:36px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.5);">
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
@@ -111,9 +111,9 @@
             </div>
 
             {{-- Login link --}}
-            <div style="text-align:center;margin-top:20px;font-size:13px;color:#aaa;">
+            <div style="text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,0.8);">
                 Already have an account?
-                <a href="{{ route('login') }}" style="color:#534AB7;font-weight:600;text-decoration:none;">
+                <a href="{{ route('login') }}" style="color:#fff;font-weight:700;text-decoration:none;">
                     Log in
                 </a>
             </div>
