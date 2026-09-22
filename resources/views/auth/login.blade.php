@@ -4,74 +4,106 @@
 
 @section('content')
 
-    <div class="d-flex justify-content-center">
-        <div class="col-md-6 col-lg-5">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+        <div style="width: 100%; max-width: 480px;">
 
-            <div class="text-center mb-4">
-                <i class="bi bi-check2-square" style="font-size: 2.5rem; color: #0d6efd;"></i>
-                <h2 class="mt-2">Log In to TaskFlow</h2>
+            {{-- Logo & Title --}}
+            <div style="text-align:center; margin-bottom: 28px;">
+                <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#534AB7,#1D9E75);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;">
+                    <i class="bi bi-check2-square"></i>
+                </div>
+                <div style="font-size:22px;font-weight:700;color:#1a1a2e;">Welcome back</div>
+                <div style="font-size:13px;color:#aaa;margin-top:4px;">Log in to your TaskFlow account</div>
             </div>
 
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
+            {{-- Session Status --}}
+            @if (session('status'))
+                <div style="background:#EAF3DE;border-left:4px solid #1D9E75;color:#3B6D11;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:14px;">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+            {{-- Card --}}
+            <div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
 
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                    {{-- Email --}}
+                    <div class="mb-3">
+                        <label style="font-size:13px;font-weight:600;color:#555;margin-bottom:6px;display:block;">
+                            Email Address
+                        </label>
+                        <div style="position:relative;">
+                            <i class="bi bi-envelope" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#bbb;font-size:15px;"></i>
                             <input type="email"
-                                   id="email"
                                    name="email"
                                    class="form-control @error('email') is-invalid @enderror"
+                                   style="padding-left:36px;border-radius:10px;border:1.5px solid #e8e8e8;background:#fafafa;"
                                    value="{{ old('email') }}"
-                                   required
+                                   placeholder="you@example.com"
                                    autofocus>
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
+                        @error('email')
+                            <div style="font-size:12px;color:#A32D2D;margin-top:5px;background:#FCEBEB;padding:6px 10px;border-radius:6px;">
+                                <i class="bi bi-exclamation-circle"></i> {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password"
-                                   id="password"
-                                   name="password"
-                                   class="form-control @error('password') is-invalid @enderror"
-                                   required>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" name="remember" id="remember" class="form-check-input">
-                            <label for="remember" class="form-check-label">Remember me</label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Log In</button>
-
-                        <div class="d-flex justify-content-between mt-3">
+                    {{-- Password --}}
+                    <div class="mb-3">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <label style="font-size:13px;font-weight:600;color:#555;">Password</label>
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="small text-decoration-none">
-                                    Forgot your password?
+                                <a href="{{ route('password.request') }}"
+                                   style="font-size:12px;color:#534AB7;text-decoration:none;">
+                                    Forgot password?
                                 </a>
                             @endif
-
-                            <a href="{{ route('register') }}" class="small text-decoration-none">
-                                Don't have an account? Register
-                            </a>
                         </div>
+                        <div style="position:relative;">
+                            <i class="bi bi-lock" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#bbb;font-size:15px;"></i>
+                            <input type="password"
+                                   name="password"
+                                   class="form-control @error('password') is-invalid @enderror"
+                                   style="padding-left:36px;border-radius:10px;border:1.5px solid #e8e8e8;background:#fafafa;"
+                                   placeholder="Your password">
+                        </div>
+                        @error('password')
+                            <div style="font-size:12px;color:#A32D2D;margin-top:5px;background:#FCEBEB;padding:6px 10px;border-radius:6px;">
+                                <i class="bi bi-exclamation-circle"></i> {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
-                    </form>
+                    {{-- Remember Me --}}
+                    <div class="mb-4" style="display:flex;align-items:center;gap:8px;">
+                        <input type="checkbox"
+                               name="remember"
+                               id="remember"
+                               style="width:16px;height:16px;accent-color:#534AB7;cursor:pointer;">
+                        <label for="remember" style="font-size:13px;color:#666;cursor:pointer;margin:0;">
+                            Remember me
+                        </label>
+                    </div>
 
-                </div>
+                    {{-- Submit --}}
+                    <button type="submit"
+                            style="width:100%;background:linear-gradient(135deg,#534AB7,#1D9E75);color:#fff;border:none;padding:12px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <i class="bi bi-box-arrow-in-right"></i> Log in
+                    </button>
+
+                </form>
+
+            </div>
+
+            {{-- Register link --}}
+            <div style="text-align:center;margin-top:20px;font-size:13px;color:#aaa;">
+                Don't have an account?
+                <a href="{{ route('register') }}" style="color:#534AB7;font-weight:600;text-decoration:none;">
+                    Create one
+                </a>
             </div>
 
         </div>
